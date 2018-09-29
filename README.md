@@ -1,2 +1,2 @@
 # rummernote
-React version of Summernote
+React wrapper of Summernote
