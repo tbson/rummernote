@@ -7,9 +7,10 @@ import 'bootstrap/js/dropdown';
 import 'bootstrap/js/tooltip';
 import 'bootstrap/js/popover';
 import 'bootstrap/js/modal';
-import 'summernote/dist/summernote.css';
 import 'codemirror/lib/codemirror.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'summernote/dist/summernote.css';
+import './style.css';
 
 type Props = {
     options: Object,
@@ -121,6 +122,10 @@ export default class Rummernote extends React.Component<Props, State> {
     render() {
         const {value, defaultValue, className} = this.props;
         const html = value || defaultValue;
-        return <div id={this.uid} className={className || ''} dangerouslySetInnerHTML={{__html: html}} />;
+        return (
+            <div className="rummernote-wrapper">
+                <div id={this.uid} className={className || ''} dangerouslySetInnerHTML={{__html: html}} />
+            </div>
+        );
     }
 }

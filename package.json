@@ -6,10 +6,13 @@
     "repository": "git@github.com:tbson/rummernote.git",
     "author": "Son Tran <mail@tbson.info>",
     "license": "MIT",
+    "readmeFilename": "README.md",
     "scripts": {
         "start": "webpack-dev-server --watch-poll --hot --content-base",
         "build": "webpack"
     },
+    "files": ["dist", "src"],
+    "keywords": ["summernote", "react summernote", "rummernote", "react-wysiwyg", "rich-text-editor", "WYSIWYG"],
     "peerDependencies": {
         "jquery": "^3.2.1",
         "react": ">=16.4.0",
@@ -18,13 +21,13 @@
     "dependencies": {
         "bootstrap": "3.3.7",
         "codemirror": "5.40.2",
+        "jquery": "3.2.1",
+        "popper.js": "1.14.4",
+        "react": "16.5.2",
+        "react-dom": "16.5.2",
         "summernote": "0.8.10"
     },
     "devDependencies": {
-        "jquery": "3.2.1",
-        "react": "16.5.2",
-        "react-dom": "16.5.2",
-        "popper.js": "1.14.4",
         "@babel/core": "7.1.2",
         "@babel/plugin-proposal-class-properties": "7.1.0",
         "@babel/plugin-proposal-function-bind": "7.0.0",
@@ -45,7 +48,11 @@
         "eslint-plugin-react": "7.11.1",
         "file-loader": "2.0.0",
         "flow-bin": "0.81.0",
+        "mini-css-extract-plugin": "0.4.3",
+        "optimize-css-assets-webpack-plugin": "5.0.1",
         "style-loader": "0.23.0",
+        "uglifyjs-webpack-plugin": "2.0.1",
+        "url-loader": "1.1.1",
         "webpack": "4.20.2",
         "webpack-cli": "3.1.2",
         "webpack-dev-server": "3.1.9",

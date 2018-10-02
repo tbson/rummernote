@@ -1,8 +1,17 @@
 module.exports = function(api) {
     api.cache(true);
-    const presets = ['@babel/preset-env', '@babel/preset-react', '@babel/preset-flow'];
+    const presets = [
+        [
+            '@babel/preset-env',
+            {
+                modules: 'umd'
+            }
+        ],
+        '@babel/preset-react',
+        '@babel/preset-flow'
+    ];
+
     const plugins = [
-        '@babel/plugin-proposal-function-bind',
         '@babel/plugin-proposal-class-properties',
         '@babel/plugin-transform-regenerator',
         [
@@ -12,7 +21,6 @@ module.exports = function(api) {
             }
         ]
     ];
-
     return {
         presets,
         plugins
