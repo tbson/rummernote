@@ -1,6 +1,6 @@
 {
     "name": "rummernote",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "React wrapper of Summernote",
     "main": "./build/index.js",
     "repository": "git@github.com:tbson/rummernote.git",
@@ -11,7 +11,7 @@
         "start": "webpack-dev-server --watch-poll --hot --content-base",
         "build": "webpack"
     },
-    "files": ["dist", "src"],
+    "files": ["build", "src"],
     "keywords": ["summernote", "react summernote", "rummernote", "react-wysiwyg", "rich-text-editor", "WYSIWYG"],
     "peerDependencies": {
         "jquery": "^3.2.1",
