@@ -88,6 +88,12 @@ export default class Rummernote extends React.Component<Props, State> {
         this.prepareEditor();
     }
 
+    componentWillUnmount() {
+        if (this.editor.summernote) {
+            this.editor.summernote('destroy');
+        }
+    }
+
     onImageUpload = (images: FileList) => {
         const image = images[0];
         return this.props.onImageUpload(image, this.insertImage);
