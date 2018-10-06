@@ -39,7 +39,7 @@ import 'rummernote/build/style.css';
 
 type Props = {};
 type State = {};
-class RichTextEditor extends React.Component<Props, State> {
+export default class RichTextEditor extends React.Component<Props, State> {
     render() {
         return <Rummernote />;
     }
@@ -50,28 +50,23 @@ class RichTextEditor extends React.Component<Props, State> {
 
 Because total bundle size of `rummernote` is about 661 Kb (included `summernote`, `bootstrap 3` and `codemirror`).
 
-So we can use `webpackPreload` to load it dynamically to reduce our final bundle size increasing:
+So we can use `webpackPreload` and `react-loadable` to load it dynamically to reduce our final bundle size increasing:
 
 ```javascript
 // @flow
 import * as React from 'react';
-import(/* webpackPreload: true */ 'rummernote/build/style.css');
+import Loadable from 'react-loadable';
+import(/* webpackPreload: true */ 'rummernote/build/style.css'); // This one can put in root Component
+
+const Rummernote = Loadable({
+    loader: () => import('rummernote'),
+    loading: () => <div>Loading Rummernote...</div>
+});
 
 type Props = {};
-type State = {
-    Rummernote: React.Node
-};
-
-export default class Landing extends React.Component<Props, State> {
-    state = {
-        Rummernote: () => null
-    };
-    async componentDidMount() {
-        const Rummernote = (await import(/* webpackPreload: true */ 'rummernote')).default;
-        this.setState({Rummernote});
-    }
+type State = {};
+export default class RichTextEditor extends React.Component<Props, State> {
     render() {
-        const {Rummernote} = this.state;
         return <Rummernote />;
     }
 }
