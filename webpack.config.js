@@ -52,8 +52,6 @@ const common = {
     plugins: [
         new webpack.NamedModulesPlugin(),
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
             filename: 'style.css',
             chunkFilename: '[id].css'
         }),

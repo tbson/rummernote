@@ -13,18 +13,24 @@ import 'summernote/dist/summernote.css';
 import './style.css';
 
 type Props = {
-    options: Object,
-    placeholder: string,
-    popatmouse: boolean,
-    disabled: boolean,
-    value?: string,
+    options?: Object,
+    placeholder?: string,
+    disabled?: boolean,
     defaultValue?: string,
-    className?: string
+    className?: string,
+    onInit?: Function,
+    onEnter?: Function,
+    onFocus?: Function,
+    onBlur?: Function,
+    onKeyUp?: Function,
+    onKeydown?: Function,
+    onPaste?: Function,
+    onChange?: Function,
+    onImageUpload?: Function
 };
 type State = {
     localChange: boolean,
-    status: string,
-    value?: string
+    status: string
 };
 
 const randomUid = () => Math.floor(Math.random() * 100000);
@@ -33,7 +39,6 @@ export default class Rummernote extends React.Component<Props, State> {
     static defaultProps = {
         options: {},
         placeholder: '',
-        popatmouse: false,
         disabled: false
     };
 
@@ -45,62 +50,62 @@ export default class Rummernote extends React.Component<Props, State> {
     constructor(props) {
         super(props);
         this.editor = {};
-        this.uid = `react-summernote-${randomUid()}`;
+        this.uid = `rummernote-${randomUid()}`;
         this.options = props.options;
         this.options.callbacks = {
             onInit: props.onInit,
+            onImageUpload: typeof props.onImageUpload === 'function' && this.onImageUpload,
+            onChange: props.onChange,
             onEnter: props.onEnter,
             onFocus: props.onFocus,
             onBlur: props.onBlur,
-            onKeyup: props.onKeyUp,
-            onKeydown: props.onKeyDown,
-            onPaste: props.onPaste,
-            onChange: props.onChange,
-            onImageUpload: props.onImageUpload
+            onKeyup: event => {
+                if (typeof props.onKeyup === 'function') {
+                    return props.onKeyup(event.key, event.keyCode);
+                }
+            },
+            onKeydown: event => {
+                if (typeof props.onKeydown === 'function') {
+                    return props.onKeydown(event.key, event.keyCode);
+                }
+            },
+            onPaste: event => {
+                const value = event.originalEvent.clipboardData.getData('text');
+                return props.onPaste(value);
+            }
         };
-        this.options.popatmouse = props.popatmouse;
+        this.options.popatmouse = false;
         this.options.placeholder = props.placeholder;
     }
 
-    static getDerivedStateFromProps(nextProps: Props, prevState: States) {
-        const {disabled, value} = nextProps;
-        if (prevState.localChange) {
-            return {
-                localChange: false
-            };
-        }
-
-        const state = {
-            localChange: false,
-            status: disabled ? 'disable' : 'enable'
-        };
-
-        if (nextProps.value !== prevState.value) {
-            state.value = value;
-        }
-
-        return state;
-    }
-
     componentDidUpdate(prevProps: Props, prevState: State) {
-        this.applyStatus();
-        this.applyNewContent();
+        this.prepareEditor();
     }
 
     componentDidMount() {
         this.editor = $(`#${this.uid}`);
         this.editor.summernote(this.options);
-        this.applyStatus();
+        this.prepareEditor();
     }
 
+    onImageUpload = (images: FileList) => {
+        const image = images[0];
+        return this.props.onImageUpload(image, this.insertImage);
+    };
+
+    prepareEditor = () => {
+        this.applyStatus();
+        this.applyNewContent();
+    };
+
     applyStatus = () => {
-        const {status} = this.state;
-        this.editor.summernote(status);
+        const {disabled} = this.props;
+        this.editor.summernote(disabled ? 'disable' : 'enable');
     };
 
     applyNewContent = () => {
-        const {value} = this.state;
-        this.editor.summernote('code', value);
+        const {defaultValue} = this.props;
+        this.editor.summernote('code', defaultValue);
     };
 
     focus = () => {
@@ -120,11 +125,11 @@ export default class Rummernote extends React.Component<Props, State> {
     };
 
     render() {
-        const {value, defaultValue, className} = this.props;
-        const html = value || defaultValue;
+        const {defaultValue, className} = this.props;
+        const html = defaultValue;
         return (
-            <div className="rummernote-wrapper">
-                <div id={this.uid} className={className || ''} dangerouslySetInnerHTML={{__html: html}} />
+            <div className={`rummernote-wrapper ${className || ''}`.trim()}>
+                <div id={this.uid} dangerouslySetInnerHTML={{__html: html}} />
             </div>
         );
     }
