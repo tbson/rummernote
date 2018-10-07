@@ -93,13 +93,13 @@ export default class RichTextEditor extends React.Component<Props, State> {
 
 ### Value props
 
-| Property       | Type      | Description                                                             |
-| -------------- | --------- | ----------------------------------------------------------------------- |
-| `options`      | `Object`  | Options object. More info about options http://summernote.org/deep-dive |
-| `defaultValue` | `String`  | Default value                                                           |
-| `placeholder`  | `String`  | Place holder                                                            |
-| `disabled`     | `Boolean` | Disable editor                                                          |
-| `className`    | `String`  | Class name of editor's wrapper                                          |
+| Property      | Type      | Description                                                             |
+| ------------- | --------- | ----------------------------------------------------------------------- |
+| `options`     | `Object`  | Options object. More info about options http://summernote.org/deep-dive |
+| `value`       | `String`  | Editor's value                                                          |
+| `placeholder` | `String`  | Place holder                                                            |
+| `disabled`    | `Boolean` | Disable editor                                                          |
+| `className`   | `String`  | Class name of editor's wrapper                                          |
 
 ### Function props
 
