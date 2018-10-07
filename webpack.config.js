@@ -61,7 +61,7 @@ const common = {
     ]
 };
 
-if (['start', 'start3', 'start4'].includes(TARGET)) {
+if (['start', 'start4'].includes(TARGET)) {
     module.exports = env => {
         const {bsVersion} = env || {};
         return merge(common, {
