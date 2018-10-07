@@ -1,9 +1,8 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
 const TARGET = process.env.npm_lifecycle_event;
 const path = require('path');
 
@@ -62,65 +61,74 @@ const common = {
     ]
 };
 
-if (TARGET === 'start') {
-    module.exports = merge(common, {
-        entry: {
-            app: `${PATHS.app}/index.js`
-        },
-        mode: 'development',
-        watchOptions: {
-            ignored: /node_modules/
-        },
-        devtool: 'inline-source-map',
-        devServer: {
-            disableHostCheck: true,
-            contentBase: PATHS.build,
-            historyApiFallback: true,
-            hot: true,
-            stats: 'errors-only',
-            host: 'localhost',
-            port: 8080
-        }
-    });
+if (['start', 'start3', 'start4'].includes(TARGET)) {
+    module.exports = env => {
+        const {bsVersion} = env || {};
+        return merge(common, {
+            entry: {
+                app: `${PATHS.app}/index-${bsVersion || 'bs3'}.js`
+            },
+            mode: 'development',
+            watchOptions: {
+                ignored: /node_modules/
+            },
+            devtool: 'inline-source-map',
+            devServer: {
+                disableHostCheck: true,
+                contentBase: PATHS.build,
+                historyApiFallback: true,
+                hot: true,
+                stats: 'errors-only',
+                host: 'localhost',
+                port: 8080
+            }
+        });
+    };
 }
 
-if (TARGET === 'build') {
-    module.exports = merge(common, {
-        entry: {
-            app: `${PATHS.app}/Rummernote.js`
-            // app: `${PATHS.app}/test.js`
-        },
-        externals: [
-            {
-                react: {
-                    root: 'React',
-                    commonjs2: 'react',
-                    commonjs: 'react',
-                    amd: 'react'
-                },
-                'react-dom': {
-                    root: 'ReactDOM',
-                    commonjs2: 'react-dom',
-                    commonjs: 'react-dom',
-                    amd: 'react-dom'
-                },
-                jquery: {
-                    root: '$',
-                    commonjs2: 'jquery',
-                    commonjs: 'jquery',
-                    amd: 'jquery'
+if (['build', 'build4', 'build-all'].includes(TARGET)) {
+    module.exports = env => {
+        const {bsVersion} = env || {};
+        return merge(common, {
+            output: {
+                path: path.join(PATHS.build, bsVersion === 'bs4' ? bsVersion : '')
+            },
+            entry: {
+                app: `${PATHS.app}/${bsVersion || 'bs3'}.js`
+            },
+            externals: [
+                {
+                    react: {
+                        root: 'React',
+                        commonjs2: 'react',
+                        commonjs: 'react',
+                        amd: 'react'
+                    },
+                    'react-dom': {
+                        root: 'ReactDOM',
+                        commonjs2: 'react-dom',
+                        commonjs: 'react-dom',
+                        amd: 'react-dom'
+                    },
+                    jquery: {
+                        root: '$',
+                        commonjs2: 'jquery',
+                        commonjs: 'jquery',
+                        amd: 'jquery'
+                    },
+                    bootstrap: true
                 }
-            }
-        ],
-        optimization: {
-            minimizer: [
-                new UglifyJsPlugin({
-                    cache: true,
-                    parallel: true
-                }),
-                new OptimizeCSSAssetsPlugin({})
-            ]
-        },
-        mode: 'production'
-    });
+            ],
+            optimization: {
+                minimizer: [
+                    new UglifyJsPlugin({
+                        cache: true,
+                        parallel: true
+                    }),
+                    new OptimizeCSSAssetsPlugin({})
+                ]
+            },
+            mode: 'production'
+        });
+    };
 }

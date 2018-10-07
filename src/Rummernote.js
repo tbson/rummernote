@@ -1,16 +1,7 @@
 // @flow
 import React from 'react';
-
 import $ from 'jquery';
-import 'summernote/dist/summernote';
-import 'bootstrap/js/dropdown';
-import 'bootstrap/js/tooltip';
-import 'bootstrap/js/popover';
-import 'bootstrap/js/modal';
 import 'codemirror/lib/codemirror.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'summernote/dist/summernote.css';
-import './style.css';
 
 type Props = {
     options?: Object,

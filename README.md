@@ -34,8 +34,14 @@ new webpack.ProvidePlugin({
 ```javascript
 // @flow
 import * as React from 'react';
+// For Bootstrap 3
 import Rummernote from 'rummernote';
 import 'rummernote/build/style.css';
+/*
+For Bootstrap 4
+import Rummernote from 'rummernote/build/bs4';
+import 'rummernote/build/bs4/style.css';
+*/
 
 type Props = {};
 type State = {};
@@ -48,7 +54,7 @@ export default class RichTextEditor extends React.Component<Props, State> {
 
 **Lazy load:**
 
-Because total bundle size of `rummernote` is about 661 Kb (included `summernote`, `bootstrap 3` and `codemirror`).
+Because total bundle size of `rummernote` is about 333 Kb (included `summernote` and `codemirror`).
 
 So we can use `webpackPreload` and `react-loadable` to load it dynamically to reduce our final bundle size increasing:
 
@@ -56,10 +62,17 @@ So we can use `webpackPreload` and `react-loadable` to load it dynamically to re
 // @flow
 import * as React from 'react';
 import Loadable from 'react-loadable';
+// For Bootstrap 3
 import(/* webpackPreload: true */ 'rummernote/build/style.css'); // This one can put in root Component
 
+// For Bootstrap 4
+// import(/* webpackPreload: true */ 'rummernote/build/bs4/style.css');
+
 const Rummernote = Loadable({
+    // For Bootsrtap 3
     loader: () => import('rummernote'),
+    // For Bootsrtap 4
+    // loader: () => import('rummernote/dist/bs4'),
     loading: () => <div>Loading Rummernote...</div>
 });
 
