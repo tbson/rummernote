@@ -34,6 +34,8 @@ new webpack.ProvidePlugin({
 ```javascript
 // @flow
 import * as React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap';
 // For Bootstrap 3
 import Rummernote from 'rummernote';
 import 'rummernote/build/style.css';
@@ -62,6 +64,8 @@ So we can use `webpackPreload` and `react-loadable` to load it dynamically to re
 // @flow
 import * as React from 'react';
 import Loadable from 'react-loadable';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import(/* webpackPreload: true */ 'bootstrap/dist/js/bootstrap');
 // For Bootstrap 3
 import(/* webpackPreload: true */ 'rummernote/build/style.css'); // This one can put in root Component
 
