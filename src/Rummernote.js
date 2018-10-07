@@ -7,7 +7,7 @@ type Props = {
     options?: Object,
     placeholder?: string,
     disabled?: boolean,
-    defaultValue?: string,
+    value?: string,
     className?: string,
     onInit?: Function,
     onEnter?: Function,
@@ -70,13 +70,14 @@ export default class Rummernote extends React.Component<Props, State> {
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
-        this.prepareEditor();
+        this.applyStatus();
     }
 
     componentDidMount() {
         this.editor = $(`#${this.uid}`);
         this.editor.summernote(this.options);
-        this.prepareEditor();
+        this.applyStatus();
+        this.applyNewContent();
     }
 
     componentWillUnmount() {
@@ -90,19 +91,14 @@ export default class Rummernote extends React.Component<Props, State> {
         return this.props.onImageUpload(image, this.insertImage);
     };
 
-    prepareEditor = () => {
-        this.applyStatus();
-        this.applyNewContent();
-    };
-
     applyStatus = () => {
         const {disabled} = this.props;
         this.editor.summernote(disabled ? 'disable' : 'enable');
     };
 
     applyNewContent = () => {
-        const {defaultValue} = this.props;
-        this.editor.summernote('code', defaultValue);
+        const {value} = this.props;
+        this.editor.summernote('code', value);
     };
 
     focus = () => {
@@ -122,8 +118,8 @@ export default class Rummernote extends React.Component<Props, State> {
     };
 
     render() {
-        const {defaultValue, className} = this.props;
-        const html = defaultValue;
+        const {value, className} = this.props;
+        const html = value;
         return (
             <div className={`rummernote-wrapper ${className || ''}`.trim()}>
                 <div id={this.uid} dangerouslySetInnerHTML={{__html: html}} />
