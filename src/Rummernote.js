@@ -42,7 +42,7 @@ export default class Rummernote extends React.Component<Props, State> {
         super(props);
         this.editor = {};
         this.uid = `rummernote-${randomUid()}`;
-        this.options = props.options;
+        this.options = {...props.options};
         this.options.callbacks = {
             onInit: props.onInit,
             onImageUpload: typeof props.onImageUpload === 'function' && this.onImageUpload,
