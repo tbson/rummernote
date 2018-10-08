@@ -4,13 +4,13 @@ React wrapper of Summernote
 
 ## Instalation
 
-Using nmp:
+Using `npm`:
 
 ```
-npm install rummernote
+npm i rummernote
 ```
 
-Using yarn:
+Using `yarn`:
 
 ```
 yarn add rummernote
