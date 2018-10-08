@@ -2,6 +2,8 @@
 
 React wrapper of Summernote
 
+[![npm version](https://badge.fury.io/js/rummernote.svg)](https://badge.fury.io/js/rummernote)
+
 ## Instalation
 
 Using `npm`:
