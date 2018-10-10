@@ -94,7 +94,7 @@ export default class RichTextEditor extends React.Component<Props, State> {
 
 Full example of using Rummernote with image upload:
 
-```
+```javascript
 // @flow
 import * as React from 'react';
 // $FlowFixMe: do not complain about importing node_modules
