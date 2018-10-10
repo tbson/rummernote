@@ -108,7 +108,6 @@ const Rummernote = Loadable({
 });
 
 type Props = {
-    parentUUID?: string,
     name: string,
     defaultValue: string
 };
