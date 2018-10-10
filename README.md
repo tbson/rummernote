@@ -41,6 +41,7 @@ import 'bootstrap/dist/js/bootstrap';
 // For Bootstrap 3
 import Rummernote from 'rummernote';
 import 'rummernote/build/style.css';
+import 'rummernote/lang/summernote-fr-FR'; // any locale that Summernote supported
 /*
 For Bootstrap 4
 import Rummernote from 'rummernote/build/bs4';
@@ -51,7 +52,7 @@ type Props = {};
 type State = {};
 export default class RichTextEditor extends React.Component<Props, State> {
     render() {
-        return <Rummernote />;
+        return <Rummernote options={{lang: 'fr-FR'}} />;
     }
 }
 ```
@@ -89,6 +90,79 @@ export default class RichTextEditor extends React.Component<Props, State> {
         return <Rummernote />;
     }
 }
+```
+
+Full example of using Rummernote with image upload:
+
+```
+// @flow
+import * as React from 'react';
+// $FlowFixMe: do not complain about importing node_modules
+import Loadable from 'react-loadable';
+import Tools from '../helpers/Tools';
+
+const Rummernote = Loadable({
+    // $FlowFixMe: do not complain about importing node_modules
+    loader: () => import('rummernote/build/bs4'),
+    loading: () => <div>Loading richtext editor...</div>
+});
+
+type Props = {
+    parentUUID?: string,
+    name: string,
+    defaultValue: string
+};
+
+type States = {
+    value: string
+};
+
+class RichTextInput extends React.Component<Props, States> {
+    state = {
+        value: ''
+    };
+
+    constructor(props: Props) {
+        super(props);
+        this.endPoint = 'some url...';
+    }
+
+    onChange = (value: string) => {
+        this.setState({value});
+    };
+
+    uploadImageCallBack = async (image: File, insertImage: Function) => {
+        if (image.type.indexOf('image/') === 0) {
+            const params = {image};
+            const result = await Tools.apiCall(this.endPoint, 'POST', params);
+            if (result.success) {
+                insertImage(result.data.attachment, image => {
+                    if (image.width() <= 400) {
+                        image.css('width', image.width());
+                    } else {
+                        image.css('width', '100%');
+                    }
+                });
+            }
+        }
+    };
+
+    render() {
+        return (
+            <div>
+                <input type="hidden" name={this.props.name} defaultValue={this.state.value} />
+                <Rummernote
+                    value={this.props.defaultValue}
+                    onImageUpload={this.uploadImageCallBack}
+                    onChange={this.onChange}
+                />
+            </div>
+        );
+    }
+}
+
+const styles = {};
+export default RichTextInput;
 ```
 
 ## PropTypes

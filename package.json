@@ -14,8 +14,18 @@
         "build4": "webpack --env.bsVersion=bs4",
         "build-all": "yarn build && yarn build4"
     },
-    "files": ["build", "src"],
-    "keywords": ["summernote", "react summernote", "rummernote", "react-wysiwyg", "rich-text-editor", "WYSIWYG"],
+    "files": [
+        "build",
+        "src"
+    ],
+    "keywords": [
+        "summernote",
+        "react summernote",
+        "rummernote",
+        "react-wysiwyg",
+        "rich-text-editor",
+        "WYSIWYG"
+    ],
     "peerDependencies": {
         "jquery": "^3.2.1",
         "react": ">=16.4.0",
@@ -45,6 +55,7 @@
         "@babel/runtime-corejs2": "7.1.2",
         "babel-eslint": "10.0.1",
         "babel-loader": "8.0.4",
+        "copy-webpack-plugin": "4.5.3",
         "css-loader": "1.0.0",
         "eslint": "5.6.1",
         "eslint-config-airbnb": "17.1.0",

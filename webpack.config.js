@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TARGET = process.env.npm_lifecycle_event;
 const path = require('path');
@@ -54,6 +55,12 @@ const common = {
             filename: 'style.css',
             chunkFilename: '[id].css'
         }),
+        new CopyWebpackPlugin([
+            {
+                from: 'node_modules/summernote/dist/lang',
+                to: path.join(PATHS.build, 'lang')
+            }
+        ]),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
