@@ -41,7 +41,7 @@ import 'bootstrap/dist/js/bootstrap';
 // For Bootstrap 3
 import Rummernote from 'rummernote';
 import 'rummernote/build/style.css';
-import 'rummernote/lang/summernote-fr-FR'; // any locale that Summernote supported
+import 'rummernote/build/lang/summernote-fr-FR'; // any locale that Summernote supported
 /*
 For Bootstrap 4
 import Rummernote from 'rummernote/build/bs4';
