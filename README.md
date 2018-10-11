@@ -18,7 +18,7 @@ Using `yarn`:
 yarn add rummernote
 ```
 
-## Configure Webpack
+## Configure Webpack. Forget this step if you used newest `create-react-app` (2.0.4) 
 
 Add this plugin:
 
