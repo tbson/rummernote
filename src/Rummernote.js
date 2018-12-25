@@ -88,6 +88,8 @@ export default class Rummernote extends React.Component<Props, State> {
 
     onImageUpload = (images: FileList) => {
         const image = images[0];
+        const imageInput = document.querySelector(`#${this.uid} .note-image-input`);
+        if (imageInput) imageInput.value = null;
         return this.props.onImageUpload(image, this.insertImage);
     };
 
