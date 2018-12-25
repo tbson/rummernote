@@ -5935,10 +5935,10 @@ stylehacks@^4.0.0:
     postcss "^7.0.0"
     postcss-selector-parser "^3.0.0"
 
-summernote@0.8.10:
-  version "0.8.10"
-  resolved "https://registry.yarnpkg.com/summernote/-/summernote-0.8.10.tgz#21a5d7f18a3b07500b58b60d5907417a54897520"
-  integrity sha512-1b4ESCiY9HW+12HYXCntjbThVgeYNaYKfKL7pC4Jqjo/WDS4G4mMtd2kPuCw56HxeRT67d+zlehopaE+M4o6aQ==
+summernote@0.8.11:
+  version "0.8.11"
+  resolved "https://registry.yarnpkg.com/summernote/-/summernote-0.8.11.tgz#89bb3472e75758359dbf1d7125cf1889c429f197"
+  integrity sha512-j+YbSK2ox1RZGeD5E/+6k57bvqhQLxiaazSj9zHBXOJnCuc0LZPSIGwyTlMaAGWpo6FlkXfjGS93hEDkV3zVJw==
 
 supports-color@^2.0.0:
   version "2.0.0"
