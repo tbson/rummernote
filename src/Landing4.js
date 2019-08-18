@@ -7,9 +7,11 @@ type State = {};
 
 export default class Landing extends React.Component<Props, State> {
     render() {
-        return <div>
-            <Rummernote />
-            <Rummernote />
-        </div>;
+        return (
+            <div>
+                <Rummernote />
+                <Rummernote />
+            </div>
+        );
     }
 }
